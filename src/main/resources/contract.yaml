@@ -222,12 +222,12 @@ paths:
     post:
       tags:
         - card
-      summary: activate card
-      description: activate a card (cardId)
+      summary: pincode operations
+      description: update the pincode of a card (cardId)
       parameters:
         - name: cardId
           in: path
-          description: the id of the card to activate
+          description: the id of the card
           required: true
           schema:
             type: string

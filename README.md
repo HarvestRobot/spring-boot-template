@@ -1,32 +1,20 @@
-# Spring Boot Template
+# Bank accounts and cards management
 
-This is a Spring Boot template that can be customized as per your requirements.
+## This service has the following API calls
 
-## Getting Started
-
-To start using this Spring Boot template, follow these steps:
-
-1. Clone or download the template repository.
-2. Open the project in your preferred Integrated Development Environment (IDE).
-3. Customize the project by modifying the source code, configurations, and dependencies as necessary.
-4. Build and run the project using the provided build tools, such as Maven or Gradle.
-
-## Documentation
-
-For detailed documentatioaaaan, tutorials, and examples on how to work with Spring Boot, please refer to the official Spring Boot website: [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
-
-## Community and Support
-
-Join the Spring Boot community to connect with other developers and get support:
-
-- [Spring Boot Forum](https://community.spring.io/forum/spring-boot)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/spring-boot)
-- [GitHub Issues](https://github.com/spring-projects/spring-boot/issues)
-
-## License
-
-This Spring Boot template is provided under the [Apache 2.0 license](https://github.com/spring-projects/spring-boot/blob/main/LICENSE.txt).
-
----
-
-Feel free to customize and adapt this Spring Boot template to suit your needs. Happy coding!
+### GET /account/{accountId}/summary
+get all the movements an account (accountId) has, searching by their type (movementTypeId)
+### POST /account/{accountId}/operation/withdraw
+withdraw money from an account, given its id (accountId)
+### POST /account/{accountId}/operation/save
+save money from an account, given its id (accountId)
+### POST /account/{accountId}/operation/transfer
+transfer money from an account (accountId) to another account (toAccountId)
+### POST /card/{cardId}/activate
+activate a card (cardId)
+### POST /card/{cardId}/security/pinCode
+operations related to the pincode of a card
+### GET /card/{cardId}/security/configuration
+get the configuration of a card (cardId)
+### PATCH /card/{cardId}/security/configuration
+change the configuration of a card (cardId)
