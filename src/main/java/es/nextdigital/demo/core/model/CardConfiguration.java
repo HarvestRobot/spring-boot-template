@@ -1,4 +1,4 @@
-package es.nextdigital.demo.model;
+package es.nextdigital.demo.core.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;

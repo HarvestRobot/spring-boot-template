@@ -3,8 +3,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package es.nextdigital.demo.rest;
+package es.nextdigital.demo.rest.card;
 
+import es.nextdigital.demo.rest.ApiUtil;
 import io.swagger.annotations.*;
 import org.openapitools.model.CardConfiguration;
 import org.springframework.http.HttpStatus;
