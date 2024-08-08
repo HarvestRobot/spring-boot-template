@@ -13,7 +13,7 @@ To start using this Spring Boot template, follow these steps:
 
 ## Documentation
 
-For detailed documentation, tutorials, and examples on how to work with Spring Boot, please refer to the official Spring Boot website: [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
+For detailed documentatioaaaan, tutorials, and examples on how to work with Spring Boot, please refer to the official Spring Boot website: [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
 
 ## Community and Support
 
