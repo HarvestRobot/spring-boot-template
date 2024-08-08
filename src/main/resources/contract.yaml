@@ -1,0 +1,373 @@
+openapi: 3.1.0
+info:
+  title: Bank accounting
+  version: 0.0.1
+tags:
+  - name: account
+    description: Operations with the bank account
+  - name: card
+    description: Operations with cards
+paths:
+  /account/{accountId}/summary:
+    get:
+      tags:
+        - account
+      summary: get account movements by their id
+      description: get all the movements an account (accountId) has, searching by their type (movementTypeId)
+      parameters:
+        - name: accountId
+          in: path
+          description: the IBAN of the account
+          required: true
+          schema:
+            type: string
+        - name: pageNumber
+          in: query
+          description: pagination parameter - the required page
+          required: false
+          schema:
+            type: integer
+        - name: pageSize
+          in: query
+          description: pagination parameter - the size of the page
+          required: false
+          schema:
+            type: integer
+        - name: pageLimit
+          in: query
+          description: pagination parameter - the limit of pages to return
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountMovementList'
+        '400':
+          description: Bad request
+        '404':
+          description: Not found
+        '500':
+          description: Internal error
+
+
+  /account/{accountId}/operation/withdraw:
+    post:
+      tags:
+        - account
+      summary: withdraw money
+      description: withdraw money from an account, given its id (accountId)
+      parameters:
+        - name: accountId
+          in: path
+          description: the IBAN of the account
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          description: the amount of money to withdraw
+          required: true
+          schema:
+            type: integer
+        - name: cardDetails
+          in: query
+          description: details of the card
+          required: true
+          schema:
+            type: object
+            ref: '#/components/schemas/CardDetails'
+        - name: atmId
+          in: query
+          description: the id of the ATM the operation is taking place
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: OK - No content
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal error
+
+  /account/{accountId}/operation/save:
+    post:
+      tags:
+        - account
+      summary: save money
+      description: save money from an account, given its id (accountId)
+      parameters:
+        - name: accountId
+          in: path
+          description: the IBAN of the account
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          description: the amount of money to save
+          required: true
+          schema:
+            type: integer
+        - name: cardDetails
+          in: query
+          description: details of the card
+          required: true
+          schema:
+            type: object
+            ref: '#/components/schemas/CardDetails'
+        - name: atmId
+          in: query
+          description: the id of the ATM the operation is taking place
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: OK - No content
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal error
+
+
+  /account/{accountId}/operation/transfer:
+    post:
+      tags:
+        - account
+      summary: transfer money
+      description: transfer money from an account (accountId) to another account (toAccountId)
+      parameters:
+        - name: accountId
+          in: path
+          description: the IBAN of the account
+          required: true
+          schema:
+            type: string
+        - name: toAccountId
+          in: query
+          description: the IBAN of the account to transfer money to
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          description: the amount of money to transfer
+          required: true
+          schema:
+            type: integer
+        - name: cardDetails
+          in: query
+          description: details of the card
+          required: true
+          schema:
+            type: object
+            ref: '#/components/schemas/CardDetails'
+        - name: atmId
+          in: query
+          description: the id of the ATM the operation is taking place
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: OK - No content
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal error
+
+  /card/{cardId}/activate:
+    post:
+      tags:
+        - card
+      summary: activate card
+      description: activate a card (cardId)
+      parameters:
+        - name: cardId
+          in: path
+          description: the id of the card to activate
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: OK - No content
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal error
+
+  /card/{cardId}/security/pinCode:
+    post:
+      tags:
+        - card
+      summary: activate card
+      description: activate a card (cardId)
+      parameters:
+        - name: cardId
+          in: path
+          description: the id of the card to activate
+          required: true
+          schema:
+            type: string
+        - name: pinCode
+          in: query
+          description: the pincode of the card, encoded in base 64
+          required: true
+          schema:
+            type: string
+            format: byte
+        - name: newPinCode
+          in: query
+          description: the new pincode, encoded in base 64
+          required: true
+          schema:
+            type: string
+            format: byte
+      responses:
+        '204':
+          description: OK - No content
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal error
+
+  /card/{cardId}/security/configuration:
+    get:
+      tags:
+        - card
+      summary: card configuration
+      description: get the configuration of a card (cardId)
+      parameters:
+        - name: cardId
+          in: path
+          description: the id of the card to activate
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardConfiguration'
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+        '500':
+          description: Internal error
+    patch: # because we know later there will be more fields, and we might want to change only a few
+      tags:
+        - card
+      summary: card configuration
+      description: change the configuration of a card (cardId)
+      parameters:
+        - name: cardId
+          in: path
+          description: the id of the card to activate
+          required: true
+          schema:
+            type: string
+        - name: cardConfiguration
+          in: query
+          description: the new configuration for the card
+          required: true
+          schema:
+            $ref: '#/components/schemas/CardConfiguration'
+
+components:
+  schemas:
+    AccountMovementList:
+      type: object
+      properties:
+        items:
+          description: an array with the movements of the account
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountMovement'
+        totalItems:
+          description: the total number of movements for pagination purposes
+          type: integer
+    AccountMovement:
+      type: object
+      properties:
+        type:
+          description: the type of movement, as a dictionary
+          $ref: '#/components/schemas/Dictionary'
+        timestamp:
+          description: the timestamp of the movement
+          type: string
+    Dictionary:
+      type: object
+      description: a dictionary object, with an id, a short description and a long description
+      properties:
+        id:
+          type: string
+          description: the id of the type of movement
+        shortDescription:
+          type: string
+          description: a short description
+        longDescription:
+          type: string
+          description: a long longDescription
+
+    CardDetails:
+      type: object
+      description: the details of a card
+      properties:
+        id:
+          type: string
+          description: the internal id of the card
+        number:
+          type: string
+          description: the number of the card
+        isDebit:
+          type: boolean
+          description: if the card is debit (true) or credit (false)
+        bankId:
+          type: string
+          description: the id of the bank that the card belongs to
+        active:
+          type: boolean
+          description: if this card is active (true) or not (false). A deactivated card can't be used.
+        pincode:
+          type: string
+          format: byte
+          description: the pincode of the card, in format base 64
+
+    CardConfiguration:
+      type: object
+      description: the configuration of a card
+      properties:
+        withdrawLimit:
+          type: integer
+          description: the limit of money the card can withdraw
